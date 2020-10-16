@@ -61,13 +61,16 @@ for(y in years){
   if(y<2015){
     this.z <- z[z$year==y & z$age!=99,]
     key <- alkey(this.z)
+    ma <- max(summary(key)$ages)
+    ml <- max(summary(key)$lengths)
+    
   } else {
     this.z <- z[z$year %in% c(2013,2014) & z$age!=99,]
     key <- alkey(this.z)
+    ma <- max(this.z$age)
+    ml <- as.numeric(names(this.yl)[length(names(this.yl))])
   }
   
-  ma <- max(summary(key)$ages)
-  ml <- max(summary(key)$lengths)
   key.r <- resize(key, len = 0:ml, age = 0:ma)
   key.f <- fill(key.r, nmin = 5) # Interpolate missing or weak probabilities.  
   
